@@ -1,23 +1,29 @@
 #!/usr/bin/python3
-safe_function = __import__('101-safe_function').safe_function
+import sys
 
+def safe_function(fct, *args):
+    """Executes a function safely.
 
-def my_div(a, b):
-    return a / b
+    Args:
+        fct: The function to execute.
+        args: Arguments for fct.
 
-result = safe_function(my_div, 10, 2)
-print("result of my_div: {}".format(result))
+    Returns:
+        If an error occurs - None.
+        Otherwise - the result of the call to fct.
+    """
+    try:
+        result = fct(*args)
+        return result
+    except Exception as e:
+        return None
 
-result = safe_function(my_div, 10, 0)
-print("result of my_div: {}".format(result))
+# Example usage:
+def example_function(x, y):
+    return x / y
 
-
-def print_list(my_list, len):
-    i = 0
-    while i < len:
-        print(my_list[i])
-        i += 1
-    return len
-
-result = safe_function(print_list, [1, 2, 3, 4], 10)
-print("result of print_list: {}".format(result))
+result = safe_function(example_function, 10, 0)
+if result is None:
+    print("An error occurred.")
+else:
+    print("Result:", result)
