@@ -1,7 +1,6 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 
 import sys
-
 
 def safe_function(fct, *args):
     """Executes a function safely.
@@ -16,7 +15,16 @@ def safe_function(fct, *args):
     """
     try:
         result = fct(*args)
-        return (result)
-    except:
-        print("Exception: {}".format(sys.exc_info()[1]), file=sys.stderr)
-        return (None)
+        return result
+    except Exception as e:
+        return None
+
+# Example usage:
+def example_function(x, y):
+    return x / y
+
+result = safe_function(example_function, 10, 0)
+if result is None:
+    print("An error occurred.")
+else:
+    print("Result:", result)
